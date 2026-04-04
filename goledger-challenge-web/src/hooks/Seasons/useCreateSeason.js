@@ -3,14 +3,14 @@ import { postCreateAsset } from '../../services/apiServices'
 
 export default function useCreateSeason(){
 
-    const [loading, setLoading] = useState(false)
-    const [request, setRequest] = useState(null)
+    const [loadingCreate, setLoadingCreate] = useState(false)
+    const [request, setRequestCreate] = useState(null)
 
     useEffect(() => {
         async function createSeason(){
 
         try{
-            setLoading(true)
+            setLoadingCreate(true)
 
             if(!request) return
 
@@ -34,8 +34,8 @@ export default function useCreateSeason(){
         }catch(err){
             console.error("Não foi possível salvar a temporada. Tente novamente ou fale com o administrador do sistema", err)
         }finally{
-            setLoading(false)
-            setRequest(null)
+            setLoadingCreate(false)
+            setRequestCreate(null)
         }
     }
     
@@ -45,7 +45,7 @@ export default function useCreateSeason(){
 
 
     return{
-        setRequest,
-        loading
+        setRequestCreate,
+        loadingCreate
     }
 }
