@@ -23,7 +23,7 @@ import {useForm, Controller} from 'react-hook-form'
 
 import {useState} from 'react'
 
-import useCreateSeason from '../../hooks/Seasons/useCreateSeason'
+import useCreateSeason from '../hooks/Seasons/useCreateSeason'
 
 
 
