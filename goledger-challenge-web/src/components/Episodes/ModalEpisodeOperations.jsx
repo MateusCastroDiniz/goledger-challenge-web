@@ -9,8 +9,8 @@ DialogTitle,
 Select,
 InputLabel,
 MenuItem,
-Stack
-}
+Stack,
+Rating}
 from '@mui/material';
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -33,6 +33,7 @@ export default function ModalEpisodeOperations({handleClose, openModal, episode,
       title: episode.title,
       description: episode.description,
       releaseDate: dayjs(`${episode.releaseDate}`),
+      rating: episode.rating,
       season
     }:
     {
@@ -128,6 +129,15 @@ export default function ModalEpisodeOperations({handleClose, openModal, episode,
             />
             <Controller
             control={control}
+            defaultValue={2.5}
+            name="rating"
+            render={({field}) => (
+              <Rating name="half-rating" {...field} defaultValue={2.5} precision={0.5} sx={{fontSize: "27px", marginTop: "0"}}/>
+            )}/>
+     
+
+            <Controller
+            control={control}
             defaultValue={dayjs("2026-01-01")}
             name="releaseDate"
             render={({field}) => (
@@ -138,7 +148,8 @@ export default function ModalEpisodeOperations({handleClose, openModal, episode,
                     </LocalizationProvider>
                 )
 
-            }/>
+            }/>          
+
             </Stack>
           </form>
         </DialogContent>
