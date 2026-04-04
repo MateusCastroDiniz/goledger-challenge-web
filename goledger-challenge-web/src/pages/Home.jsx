@@ -1,12 +1,11 @@
 import AddIcon from '@mui/icons-material/Add';
 import {Button, Container, Box, Typography, Skeleton} from '@mui/material';
 
-import  useShows  from '../hooks/UseShows.js'
-import useHandleClickModal from '../hooks/useHandleClickModal.js';
-
-import CardFilme from '../components/CardFilme'
+import  useShows  from '../hooks/tvShow/UseShows.js'
+import useHandleClickModal from '../hooks/useHandleClickModal.js'
+import CardTvShow from '../components/tvShow/CardTvShow'
 import HeaderApp from '../components/HeaderApp'
-import ModalCreateTvShow from '../components/ModalCreateTvShow'
+import ModalCreateTvShow from '../components/tvShow/ModalCreateTvShow'
 
 import '../styles/App.css'
 
@@ -52,7 +51,7 @@ export default function Home(){
                     {(loading ? Array.from(new Array(7)) : (filteredShows.length > 0 ? filteredShows : shows)).map(show => {
                        
                        return show ? (
-                            <CardFilme tvShow={show}/>
+                            <CardTvShow tvShow={show}/>
                             
                         ):(
                             
