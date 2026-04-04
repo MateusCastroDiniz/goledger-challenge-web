@@ -1,14 +1,17 @@
-import {Stack, Container, Grid, Box, Typography, Button} from '@mui/material'
+import {Stack, Container, Grid, Box, Typography, Button, textFieldClasses} from '@mui/material'
 import {useParams} from 'react-router-dom'
 import HeaderApp from '../components/HeaderApp'
-import AccordionSeasons from '../components/AccordionSeasons'
-import ModalUpdateTvShow from '../components/ModalUpdateTvShow'
+import AccordionSeasons from '../components/Seasons/AccordionSeasons'
+import ModalUpdateTvShow from '../components/tvShow/ModalUpdateTvShow'
+import ModalCreateSeason from '../components/Seasons/ModalCreateSeason'
+import ModalCreateEpisode from '../components/Episodes/ModalCreateEpisode'
 
-import useDetailShow from  '../hooks/useDetailShow'
-import useDetailSeason from  '../hooks/useDetailSeasons'
+
+import Fab from '@mui/material/Fab';
+import useDetailShow from  '../hooks/tvShow/useDetailShow'
+import useDetailSeason from  '../hooks/Seasons/useDetailSeasons'
 import EditIcon from '@mui/icons-material/Edit'
 import AddIcon from '@mui/icons-material/Add'
-import useHandleClickModal from '../hooks/useHandleClickModal'
 import { useState } from 'react'
 
 export default function TvShowDetail(){
@@ -21,13 +24,31 @@ export default function TvShowDetail(){
     const {tvShow, loadingTvShow, setRefresh} = useDetailShow(id)
     const {seasonDetail, setSeason, loadingSeason} = useDetailSeason()
 
-    console.log(tvShow)
+    // console.log(tvShow)
 
-    const {
-            openModal,
-            handleClickOpen,
-            handleClose
-        } = useHandleClickModal()
+    const [openModalUpdate, setOpenModalUpdate] = useState(false);
+    const [openModalCreateSeason, setOpenModalCreateSeason] = useState(false);
+    const [openModalCreateEpisode, setOpenModalCreateEpisode] = useState(false);
+    
+    const handleClickOpen = (i) => {
+        if(i == 1){
+            setOpenModalUpdate(true);
+        }else if(i == 2){
+            setOpenModalCreateSeason(true)
+        }else if(i == 3){
+            setOpenModalCreateEpisode(true)
+        }
+    };
+
+    const handleClose = (i) => {
+        if(i == 1){
+            setOpenModalUpdate(false);
+        }else if(i == 2){
+            setOpenModalCreateSeason(false)
+        }else if(i == 3){
+            setOpenModalCreateEpisode(false)
+        }
+    };
 
     const colorSchemeRecommendedAge = {
         "18": {
@@ -71,16 +92,23 @@ export default function TvShowDetail(){
                 ) : (
                     
                     <>
-                    <ModalUpdateTvShow handleClose={handleClose} openModal={openModal} tvShow={tvShow} setRefresh={setRefresh}/>
-                    
+                    <ModalUpdateTvShow handleClose={handleClose} openModal={openModalUpdate} tvShow={tvShow} setRefresh={setRefresh}/>
+                    <ModalCreateSeason handleClose={handleClose} openModal={openModalCreateSeason} tvShow={tvShow} setRefresh={setRefresh}/>
+                    <ModalCreateEpisode handleClose={handleClose} openModal={openModalCreateEpisode} tvShow={tvShow} season={seasonDetail} setRefresh={setRefresh}/>
+
                     <Grid size={6} justifyContent={"space-between"} sx={{boxSizing: "border-box"}}>
                     <Box sx={{textAlign: "start", marginBottom: "15px"}}>
                         <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} sx={{width: "100%"}}>
                             <Typography variant="h4" sx={{color: "#ffffff"}}>{tvShow?.title}</Typography>
                             <Box sx={{display: "flex", gap:"8px"}}>
-                                <Button variant="contained" size={"small"} endIcon={<EditIcon/>} sx={{height:"35px"}} onClick={() => handleClickOpen()}>
+                                <Fab variant="extended" sx={{mr: 1, gap: "5px"}} onClick={() => handleClickOpen(1)}>
                                     Editar
-                                </Button>
+                                    <EditIcon/>
+                                </Fab>
+                                
+                                {/* <Button variant="contained" size={"small"} endIcon={<EditIcon/>} sx={{height:"35px"}} >
+                                    Editar
+                                </Button> */}
                                 
                             </Box>
                         </Stack>
@@ -123,10 +151,13 @@ export default function TvShowDetail(){
                         gap: 2
                     }}>
                             
-                    <AccordionSeasons seasons={tvShow?.seasons} setSeason={setSeason} seasonDetail={seasonDetail} loading={loadingSeason}/>
-                        <Button variant="contained" size={"small"} endIcon={<AddIcon/>} sx={{height:"35px"}} onClick={() => handleClickOpen()}>
+                    <AccordionSeasons seasons={tvShow?.seasons} handleClickOpen={handleClickOpen} setSeason={setSeason} seasonDetail={seasonDetail} loading={loadingSeason}/>
+                        
+
+                        <Fab variant="extended" sx={{gap: "5px", backgroundColor: "#f5c518"}} onClick={() => handleClickOpen(2)}>
                             Nova temporada
-                        </Button>
+                            <AddIcon/>
+                        </Fab>
                     </Box>
 
                 </Grid>
