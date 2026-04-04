@@ -8,8 +8,12 @@ const api = axios.create({
     }
 })
 
-export async function getSchemas(){
-    const response = await api.get("/query/getSchema")
+export async function getSchema(props){
+
+    const payload = {
+      "assetType": props
+    }
+    const response = await api.post("/query/getSchema/", payload)
     return response.data;
 }
 
@@ -103,6 +107,7 @@ export async function postCreateAsset(attr){
   const payload = JSON.stringify({
     "asset": [attr]
   })
+  console.log(payload)
   await api.post("/invoke/createAsset", payload)
 }
 
