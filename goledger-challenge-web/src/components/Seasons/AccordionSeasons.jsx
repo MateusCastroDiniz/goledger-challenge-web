@@ -2,10 +2,9 @@ import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import {Typography, Box} from '@mui/material';
+import {Typography, Box, Button, Fab} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {useState} from 'react'
-import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add'
 
 export default function AccordionSeasons({seasons, seasonDetail, setSeason, loading, handleClickOpen}) {
@@ -42,17 +41,19 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, load
           onClick={() => {
             setSeason(season)
           }}
+          sx={{display: "flex", width: "100%", gap: "20px"}}
         >
-          <Typography component="span" sx={{ width: '33%', flexShrink: 0 }}>
+          <Typography component="span" sx={{ display:"flex", flexGrow: 1, alignItems: "center"}}>
             Temporada {season.number}
           </Typography>
 
         </AccordionSummary>
-        <AccordionDetails sx={{ display: "flex", flexDirection: "column", alignItems: "center", paddingX: "10px", paddingY: "10px", gap: "10px"}}>
+        <AccordionDetails sx={{ display: "flex", flexDirection: "column", alignItems: "center", paddingY: "10px", gap: "50px"}}>
           
+
+          <Box sx={{width: "100%", display: "flex", flexDirection: "column", alignItems:"start", gap: "20px"}}>
           {!loading && seasonDetail?.episodes?.map(ep => {
             return(
-              <Box>
                 <Accordion expanded={expandedEpisode === ep["@key"]} onChange={handleChangeEpisode(ep["@key"])} sx={{width:"100%"}}>
                   <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -75,22 +76,35 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, load
                     </Typography>
                   </AccordionDetails>
                 </Accordion>
-              </Box>
 
-            )
+)
           })}
-
-            <Fab 
-              variant='extended' 
+            <Box sx={{width:"100%", display: "flex", justifyContent: "center", paddingX: "10px", gap: "10px", boxSizing: "border-box"}}>
+              <Fab variant="extended" 
               sx={{ gap: "5px", backgroundColor: "#f5c518", width: "fit-content" }} 
               onClick={(event) => {
-                event.stopPropagation(); 
-                handleClickOpen(3);
-              }}
-            >   
-            Novo episódio
-            <AddIcon/>
-        </Fab>
+                    event.stopPropagation(); 
+                    setSeason(season)
+                    handleClickOpen(2, "U");
+                  }}>
+                Editar temporada
+              </Fab>
+
+              <Fab 
+                variant='extended' 
+                sx={{ gap: "5px", backgroundColor: "#f5c518", width: "fit-content" }} 
+                onClick={(event) => {
+                  event.stopPropagation(); 
+                  handleClickOpen(3, "C");
+                }}>   
+                Novo episódio
+                <AddIcon/>
+              </Fab>
+            </Box>
+            
+
+
+        </Box>
 
         </AccordionDetails>
 
