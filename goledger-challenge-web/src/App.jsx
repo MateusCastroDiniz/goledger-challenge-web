@@ -1,5 +1,6 @@
 import {Routes, Route} from 'react-router-dom'
-import Home from './pages/home/Home.jsx'
+import Home from './pages/Home'
+import TvShowDetail from './pages/TvShowDetail'
 import './styles/App.css'
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>
       <Routes>
         <Route path="/home" element={<Home/>}/>
+        <Route path="/tvShow/:title/:id" element={<TvShowDetail/>}/>
       </Routes>
     </>
   )
