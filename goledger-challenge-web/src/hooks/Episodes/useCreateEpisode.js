@@ -3,16 +3,16 @@ import { postCreateAsset } from '../../services/apiServices'
 
 export default function useCreateEpisode(){
 
-    const [loading, setLoading] = useState(false)
-    const [request, setRequest] = useState(null)
+    const [loadingCreate, setLoadingCreate] = useState(false)
+    const [request, setRequestCreate] = useState(null)
 
     useEffect(() => {
         async function createEpisode(){
 
         try{
-            setLoading(true)
+            setLoadingCreate(true)
             
-            console.log(request)
+            // console.log(request)
 
             if(!request) return
             
@@ -20,9 +20,10 @@ export default function useCreateEpisode(){
             const body = {
                 "@assetType": "episodes",
                 "episodeNumber": request?.episodeNumber,
-                "releaseDate": request?.releaseDate["$d"],
+                "releaseDate": request?.releaseDate,
                 "title": request?.title,
                 "description": request?.description,
+                "rating": request?.rating,
                 "season": {
                     "@assetType": "seasons",
                     "@key": request?.season?.["@key"]
@@ -31,12 +32,11 @@ export default function useCreateEpisode(){
 
             await postCreateAsset(body)
 
-            
         }catch(err){
             console.error("Erro detalhado: ", err.message, err.stack)
         }finally{
-            setLoading(false)
-            setRequest(null)
+            setLoadingCreate(false)
+            setRequestCreate(null)
         }
     }
     
@@ -45,8 +45,10 @@ export default function useCreateEpisode(){
     }, [request])
 
 
+
+
     return{
-        setRequest,
-        loading
+        setRequestCreate,
+        loadingCreate
     }
 }

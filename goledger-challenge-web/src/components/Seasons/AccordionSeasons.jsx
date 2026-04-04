@@ -2,12 +2,13 @@ import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import {Typography, Box, Button, Fab} from '@mui/material';
+import {Typography, Box, Button, Fab, Rating} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import EditIcon from '@mui/icons-material/Edit';
 import {useState} from 'react'
 import AddIcon from '@mui/icons-material/Add'
 
-export default function AccordionSeasons({seasons, seasonDetail, setSeason, loading, handleClickOpen}) {
+export default function AccordionSeasons({seasons, seasonDetail, setSeason, setEpisode, loading, handleClickOpen}) {
 
   const [expanded, setExpanded] = useState(false);
   const [expandedEpisode, setExpandedEpisode] = useState(false);
@@ -62,18 +63,31 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, load
                   sx={{display: "flex", justifyContent: "space-between"}}
                   >
                   <Typography component="span" sx={{ flexGrow: 1}}>
-                  Episódio {ep.episodeNumber}
+                  <b>Episódio {ep.episodeNumber}:</b> {ep.title}
                   </Typography>
 
-                  <Typography component="span" sx={{ width: '33%', flexShrink: 0 }}>
-                  {ep.title}
-                  </Typography>
+                  <Rating name="half-rating" readOnly defaultValue={ep.rating} precision={0.5} size={"small"} sx={{fontSize: "27px", marginTop: "0"}}/>
+                       
+                  
 
                   </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography textAlign={"start"}>
-                      {ep.description}
+                  <AccordionDetails sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                    <Typography textAlign={"start"} flexGrow={1}>
+                      {ep.description} 
                     </Typography>
+
+                    <Box sx={{width: "fit-content"}}>
+                      <Fab size={"small"} 
+                          sx={{ backgroundColor: "#f5c518"}} 
+                          onClick={(event) => {
+                            event.stopPropagation(); 
+                            setEpisode(ep)
+                            handleClickOpen(3, "U");
+                          }}>
+                        <EditIcon/>
+                      </Fab>
+                    </Box>
+
                   </AccordionDetails>
                 </Accordion>
 
@@ -97,7 +111,7 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, load
                   event.stopPropagation(); 
                   handleClickOpen(3, "C");
                 }}>   
-                Novo episódio
+                Adicionar episódio
                 <AddIcon/>
               </Fab>
             </Box>
