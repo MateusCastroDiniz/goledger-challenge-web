@@ -8,8 +8,13 @@ import IconButton from '@mui/material/IconButton'
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import '../styles/style.css'
+import {useNavigate} from 'react-router-dom'
+
 
 export default function CardFilme({tvShow}){
+
+    const navigate = useNavigate();
+
     return(
         <Box sx={{
             width: "210px", 
@@ -38,17 +43,17 @@ export default function CardFilme({tvShow}){
 
                 <Box id="div-rawting">
                     <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" sx={{width: "100%"}}>
-                        <Rating name="half-rating" defaultValue={2.5} precision={0.5} sx={{fontSize: "20px", marginTop: "0"}}/>
+                        <Rating name="half-rating" defaultValue={2.5} precision={0.5} sx={{fontSize: "27px", marginTop: "0"}}/>
                     </Stack>    
                 </Box>
             </Stack>
             <Stack id="div-actions" direction="column" gap={"20px"}>
-                <Button variant="outlined" sx={{width: "100%", borderRadius: "20px", gap:"10px", color: "#ffffff", border: "1px solid #ffffff", padding: "5px"}} size="small">
+                {/* <Button variant="outlined" sx={{width: "100%", borderRadius: "20px", gap:"10px", color: "#ffffff", border: "1px solid #ffffff", padding: "5px"}} size="small">
                     Ver temporadas
                     <SubscriptionsIcon sx={{color: "#ffffff", fontSize:"20px"}} size="small"/>
-                </Button>
-                <Button variant="outlined" sx={{width: "100%", borderRadius: "20px", gap:"10px", color: "#ffffff", border: "1px solid #ffffff", padding: "5px"}} size="small">
-                    Saiba mais
+                </Button> */}
+                <Button onClick={() => navigate(`/tvShow/${tvShow.title}/${tvShow["@key"]}`)} variant="outlined" sx={{width: "100%", borderRadius: "20px", gap:"10px", color: "#ffffff", border: "1px solid #ffffff", padding: "5px"}} size="small">
+                    Ver mais
                     <InfoOutlineIcon sx={{color: "#ffffff", fontSize:"20px"}}/>
                 </Button>
             </Stack>
