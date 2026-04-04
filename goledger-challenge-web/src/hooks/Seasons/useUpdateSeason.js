@@ -4,14 +4,14 @@ import { putUpdateAsset } from "../../services/apiServices"
 
 export default function useUpdateSeason(){
     
-    const [request, setRequest] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const [request, setRequestUpdate] = useState(null)
+    const [loadingUpdate, setLoadingUpdate] = useState(false)
 
     useEffect(() => {
 
         async function updateSeason(){
             try{
-                setLoading(true)
+                setLoadingUpdate(true)
 
                 // console.log(`${!request?.title}`)
 
@@ -19,15 +19,16 @@ export default function useUpdateSeason(){
 
                 const body = {
                     "@assetType": "seasons",
+                    "@key": request?.season?.["@key"],
                     "number": parseInt(request?.number),
-                    "year": request?.year.year(),
+                    "year": request?.year ? request?.year.year() : null,
                     "tvShow": {
                         "@assetType": "tvShows",
-                        "@key": request?.tvShow["@key"]
+                        "@key": request?.tvShow?.["@key"]
                     }
                 }
 
-                // console.log(`update tvShow ${body}`)
+                console.log(body)
 
                 await putUpdateAsset(body)
 
@@ -35,8 +36,8 @@ export default function useUpdateSeason(){
             }catch(err){
                 console.error("Não foi possível atualizar os dados da série.", err)
             }finally{
-                setLoading(false)
-                setRequest(null)
+                setLoadingUpdate(false)
+                setRequestUpdate(null)
 
             }
         }
@@ -48,7 +49,7 @@ export default function useUpdateSeason(){
 
 
     return{
-        setRequest,
-        loading
+        setRequestUpdate,
+        loadingUpdate
     }
 }
