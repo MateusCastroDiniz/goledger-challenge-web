@@ -98,7 +98,8 @@ export async function getDetailSeason(key){
       }
     };
 
-  const response = await api.post("/query/search", payload);
+    const response = await api.post("/query/search", payload);
+    // console.log(payload)
     return response.data.result;
 }
 
@@ -109,8 +110,6 @@ export async function postCreateAsset(attr){
   })
   console.log(payload)
   await api.post("/invoke/createAsset", payload)
-  
-  window.location.reload()
 }
 
 export async function putUpdateAsset(attr){
@@ -120,8 +119,6 @@ export async function putUpdateAsset(attr){
   console.log(payload)
   
   await api.put("/invoke/updateAsset", payload)
-
-  window.location.reload()
 }
 
 
@@ -132,6 +129,4 @@ export async function delDeleteAsset(attr){
 
   console.log(payload)
   await api.post("invoke/deleteAsset/", payload);
-
-  window.location.reload()
 }
