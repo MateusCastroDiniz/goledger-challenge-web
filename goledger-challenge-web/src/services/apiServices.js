@@ -109,6 +109,7 @@ export async function postCreateAsset(attr){
   })
   console.log(payload)
   await api.post("/invoke/createAsset", payload)
+  
   window.location.reload()
 }
 
@@ -117,7 +118,20 @@ export async function putUpdateAsset(attr){
     "update": attr
   })
   console.log(payload)
-  window.location.reload()
-
+  
   await api.put("/invoke/updateAsset", payload)
+
+  window.location.reload()
+}
+
+
+export async function delDeleteAsset(attr){
+  const payload = JSON.stringify({
+    "key": attr
+  })
+
+  console.log(payload)
+  await api.post("invoke/deleteAsset/", payload);
+
+  window.location.reload()
 }
