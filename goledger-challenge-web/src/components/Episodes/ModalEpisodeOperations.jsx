@@ -59,7 +59,7 @@ export default function ModalEpisodeOperations({handleClose, openModal, episode,
       {
         setRequestUpdate(data)
       }
-
+        setRefresh(prev => prev + 1)
         handleClose(3);
 
         reset();

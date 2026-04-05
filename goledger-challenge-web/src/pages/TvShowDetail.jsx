@@ -37,10 +37,6 @@ export default function TvShowDetail(){
     
     const [operation, setOperation] = useState('');
 
-
-
-
-    
     const handleClickOpen = (i, op) => {
         if(i == 1){
             setOpenModalUpdate(true);
@@ -75,9 +71,6 @@ export default function TvShowDetail(){
         setAssetType(null)
     
     }
-
-
-
 
     const colorSchemeRecommendedAge = {
         "18": {

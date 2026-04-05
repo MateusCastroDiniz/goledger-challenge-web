@@ -60,7 +60,7 @@ export default function ModalSeasonOperations({handleClose, openModal, tvShow, s
       {
         setRequestUpdate(data)
       }
-
+        setRefresh(prev => prev + 1)
         handleClose(2);
 
         reset();
