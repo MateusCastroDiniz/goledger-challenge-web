@@ -10,8 +10,10 @@ import useDetailShow from  '../hooks/tvShow/useDetailShow'
 import useDetailSeason from  '../hooks/Seasons/useDetailSeasons'
 import EditIcon from '@mui/icons-material/Edit'
 import AddIcon from '@mui/icons-material/Add'
+import DeleteIcon from '@mui/icons-material/Delete'
 import { useState } from 'react'
 import ModalEpisodeOperations from '../components/Episodes/ModalEpisodeOperations'
+import ModalDeleteAsset from '../components/ModalDeleteAsset'
 
 export default function TvShowDetail(){
 
@@ -24,12 +26,20 @@ export default function TvShowDetail(){
     const {seasonDetail, setSeason, loadingSeason} = useDetailSeason()
     const [selectedEpisode, setSelectedEpisode] = useState(null);
 
-    // console.log(tvShow)
+    console.log(selectedEpisode)
 
     const [openModalUpdate, setOpenModalUpdate] = useState(false);
     const [openModalSeasonOperations, setOpenModalSeasonOperations] = useState(false);
     const [openModalEpisodeOperations, setOpenModalEpisodeOperations] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [assetType, setAssetType] = useState(null)
+    const [assetToDelete, setAssetToDelete] = useState(null)
+    
     const [operation, setOperation] = useState('');
+
+
+
+
     
     const handleClickOpen = (i, op) => {
         if(i == 1){
@@ -51,6 +61,23 @@ export default function TvShowDetail(){
             setOpenModalEpisodeOperations(false)
         }
     };
+
+    const handleClickOpenDeleteModal = (i, type, obj) => {
+        if(i == 3){
+            setOpenModalDelete(true)
+            setAssetType(type)
+            setAssetToDelete(obj)
+        }
+    }
+
+    const handleClickCloseDeleteModal = () => {
+        setOpenModalDelete(false)
+        setAssetType(null)
+    
+    }
+
+
+
 
     const colorSchemeRecommendedAge = {
         "18": {
@@ -95,19 +122,29 @@ export default function TvShowDetail(){
                     
                     <>
                     <ModalUpdateTvShow handleClose={handleClose} openModal={openModalUpdate} tvShow={tvShow} setRefresh={setRefresh}/>
+                    
                     <ModalSeasonOperations handleClose={handleClose} openModal={openModalSeasonOperations} tvShow={tvShow} season={seasonDetail} setRefresh={setRefresh} operation={operation}/>
+                    
                     <ModalEpisodeOperations handleClose={handleClose} openModal={openModalEpisodeOperations} season={seasonDetail} episode={selectedEpisode} setRefresh={setRefresh} operation={operation}/>
+                    
+                    <ModalDeleteAsset assetToDelete={assetToDelete} handleClose={handleClickCloseDeleteModal} openModal={openModalDelete} episode={selectedEpisode} setRefresh={setRefresh} assetType={assetType}/>
 
                     <Grid size={6} justifyContent={"space-between"} sx={{boxSizing: "border-box"}}>
                     <Box sx={{textAlign: "start", marginBottom: "15px"}}>
                         <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} sx={{width: "100%"}}>
                             <Typography variant="h4" sx={{color: "#ffffff"}}>{tvShow?.title}</Typography>
-                            <Box sx={{display: "flex", gap:"8px"}}>
+                            <Box sx={{display: "flex", gap:"8px", alignItems: "center"}}>
                                 <Fab variant="extended" sx={{mr: 1, gap: "5px"}} onClick={() => handleClickOpen(1, "U")}>
                                     Editar Série
                                     <EditIcon/>
                                 </Fab>
-                                
+                                <Fab color={"error"} 
+                                onClick={(event) => {
+                                    event.stopPropagation(); 
+                                    handleClickOpenDeleteModal(3, "tvShows", tvShow);
+                                }}>
+                                <DeleteIcon />
+                            </Fab>
                                 {/* <Button variant="contained" size={"small"} endIcon={<EditIcon/>} sx={{height:"35px"}} >
                                     Editar
                                 </Button> */}
@@ -153,7 +190,7 @@ export default function TvShowDetail(){
                         gap: 2
                     }}>
                             
-                    <AccordionSeasons seasons={tvShow?.seasons} handleClickOpen={handleClickOpen} setSeason={setSeason} setEpisode={setSelectedEpisode} seasonDetail={seasonDetail} loading={loadingSeason}/>
+                    <AccordionSeasons seasons={tvShow?.seasons} handleClickOpen={handleClickOpen} setSeason={setSeason} setEpisode={setSelectedEpisode} seasonDetail={seasonDetail} handleClickOpenDeleteModal={handleClickOpenDeleteModal} loading={loadingSeason}/>
                         
 
                         <Fab variant="extended" sx={{gap: "5px", backgroundColor: "#f5c518"}} onClick={() => handleClickOpen(2, "C")}>

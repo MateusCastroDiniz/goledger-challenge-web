@@ -6,9 +6,10 @@ import {Typography, Box, Button, Fab, Rating} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditIcon from '@mui/icons-material/Edit';
 import {useState} from 'react'
-import AddIcon from '@mui/icons-material/Add'
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function AccordionSeasons({seasons, seasonDetail, setSeason, setEpisode, loading, handleClickOpen}) {
+export default function AccordionSeasons({seasons, seasonDetail, setSeason, setEpisode, loading, handleClickOpen, handleClickOpenDeleteModal}) {
 
   const [expanded, setExpanded] = useState(false);
   const [expandedEpisode, setExpandedEpisode] = useState(false);
@@ -48,6 +49,26 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, setE
             Temporada {season.number}
           </Typography>
 
+          <Box sx={{width:"100%", display: "flex", justifyContent: "end", alignItems: "center",  paddingX: "10px", gap: "10px", boxSizing: "border-box"}}>
+              <Fab variant="extended" size={"small"}
+              sx={{ gap: "5px", backgroundColor: "#f5c518", width: "fit-content", fontSize: "12px", paddingX: "10px"}} 
+              onClick={(event) => {
+                    event.stopPropagation(); 
+                    setSeason(season)
+                    handleClickOpen(2, "U");
+                  }}>
+                Editar temporada
+                <EditIcon/>
+              </Fab>
+              
+              <Fab color={"error"} size={"small"}
+                  onClick={(event) => {
+                    event.stopPropagation(); 
+                    handleClickOpenDeleteModal(3, "seasons", season);
+                  }}>
+                <DeleteIcon />
+              </Fab>
+          </Box>
         </AccordionSummary>
         <AccordionDetails sx={{ display: "flex", flexDirection: "column", alignItems: "center", paddingY: "10px", gap: "50px"}}>
           
@@ -55,7 +76,7 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, setE
           <Box sx={{width: "100%", display: "flex", flexDirection: "column", alignItems:"start", gap: "20px"}}>
           {!loading && seasonDetail?.episodes?.map(ep => {
             return(
-                <Accordion expanded={expandedEpisode === ep["@key"]} onChange={handleChangeEpisode(ep["@key"])} sx={{width:"100%"}}>
+                <Accordion expanded={expandedEpisode === ep["@key"]} onChange={handleChangeEpisode(ep["@key"])} sx={{width:"100%", mb:"0"}}>
                   <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1bh-content"
@@ -76,7 +97,7 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, setE
                       {ep.description} 
                     </Typography>
 
-                    <Box sx={{width: "fit-content"}}>
+                    <Box sx={{width: "fit-content", display: "flex", flexDirection:"row", gap: "10px"}}>
                       <Fab size={"small"} 
                           sx={{ backgroundColor: "#f5c518"}} 
                           onClick={(event) => {
@@ -86,6 +107,14 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, setE
                           }}>
                         <EditIcon/>
                       </Fab>
+
+                      <Fab size={"small"} color={"error"} 
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleClickOpenDeleteModal(3, "episodes", ep);
+                          }}>
+                        <DeleteIcon />
+                      </Fab>
                     </Box>
 
                   </AccordionDetails>
@@ -94,18 +123,9 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, setE
 )
           })}
             <Box sx={{width:"100%", display: "flex", justifyContent: "center", paddingX: "10px", gap: "10px", boxSizing: "border-box"}}>
-              <Fab variant="extended" 
-              sx={{ gap: "5px", backgroundColor: "#f5c518", width: "fit-content" }} 
-              onClick={(event) => {
-                    event.stopPropagation(); 
-                    setSeason(season)
-                    handleClickOpen(2, "U");
-                  }}>
-                Editar temporada
-              </Fab>
-
+              
               <Fab 
-                variant='extended' 
+                variant='extended'
                 sx={{ gap: "5px", backgroundColor: "#f5c518", width: "fit-content" }} 
                 onClick={(event) => {
                   event.stopPropagation(); 
