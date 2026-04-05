@@ -24,12 +24,12 @@ export default function useDetailSeason(){
 
                 const seasonEpisodesSorted = seasonEpisodes.sort((a, b) => {return a.episodeNumber - b.episodeNumber})
 
-                const filteredEpisodes = seasonEpisodesSorted.filter(ep => ep.season["@key"] == selectedSeason["@key"])
+                // const filteredEpisodes = seasonEpisodesSorted.filter(ep => ep.season["@key"] == selectedSeason["@key"])
 
 
                 setSeasonDetail(({
                     ...selectedSeason,
-                    episodes: filteredEpisodes
+                    episodes: seasonEpisodesSorted
                 }))
 
 
