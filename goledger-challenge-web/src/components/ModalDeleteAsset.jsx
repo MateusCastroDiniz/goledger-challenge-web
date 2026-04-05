@@ -22,6 +22,8 @@ import dayjs from 'dayjs';
 import {useForm, Controller} from 'react-hook-form'
 import useDeleteEpisode from '../hooks/Episodes/useDeleteEpisode';
 import useDeleteSeason from '../hooks/Seasons/useDeleteSeason';
+import useDeleteTvShow from '../hooks/tvShow/useDeleteTvShow';
+import { useNavigate } from 'react-router-dom';
 
 export default function ModalDeleteAsset({handleClose, openModal, setRefresh, operation, assetToDelete, assetType}) {
 
@@ -39,27 +41,35 @@ export default function ModalDeleteAsset({handleClose, openModal, setRefresh, op
       values : valuesUseForm
     })
 
-    const {setRequestDeleteEpisode, loadingDeleteEpisode} = useDeleteEpisode()
-    const {setRequestDeleteSeason, loadingDeleteSeason} = useDeleteSeason()
+    const {setRequestDeleteEpisode} = useDeleteEpisode()
+    const {setRequestDeleteSeason} = useDeleteSeason()
+    const {setRequestDeleteTvShow} = useDeleteTvShow()
     // const {setRequestUpdate, loadingUpdate} = useUpdateSeason()
-
+    const navigate = useNavigate()
 
     const onSubmit = (data) => {
     //   console.log(data.assetToDelete)
       
       if(assetType == "episodes")
       {
-        setRequestDeleteEpisode(assetToDelete)
+          setRequestDeleteEpisode(data)
+          setRefresh(prev => prev + 1)
 
       }else if(assetType == "seasons")
       {
-        console.log(assetToDelete)
-        setRequestDeleteSeason(data)
-      }
+          setRequestDeleteSeason(data)
+          setRefresh(prev => prev + 1)
 
-        // handleClose(3);
+        }else if(assetType == "tvShows"){
+        console.log(data)
+        setRequestDeleteTvShow(data)
+        navigate('/home')
+        
+    }
+    
+        handleClose(3);
 
-        // reset();
+        reset();
     }
 
   return (
