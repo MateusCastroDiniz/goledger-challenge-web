@@ -63,8 +63,9 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, setE
               
               <Fab color={"error"} size={"small"}
                   onClick={(event) => {
-                    event.stopPropagation(); 
-                    handleClickOpenDeleteModal(3, "seasons", season);
+                    event.stopPropagation();
+                    setSeason(season)
+                    handleClickOpenDeleteModal(3, "seasons", seasonDetail);
                   }}>
                 <DeleteIcon />
               </Fab>
