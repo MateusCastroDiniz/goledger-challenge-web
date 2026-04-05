@@ -20,7 +20,7 @@ export default function useDeleteSeason(){
                 const deletePromises = request?.assetToDelete?.episodes?.map(e => {
                     
                     const body = {
-                        "@assetType": "episodes",
+                        "@assetType": e?.assetType,
                         "@key": e?.["@key"]
                     }
 
@@ -31,7 +31,7 @@ export default function useDeleteSeason(){
 
 
                 const bodySeason = {
-                    "@assetType": "seasons",
+                    "@assetType": request?.assetType,
                     "@key": request?.assetToDelete?.["@key"]
                 }
 

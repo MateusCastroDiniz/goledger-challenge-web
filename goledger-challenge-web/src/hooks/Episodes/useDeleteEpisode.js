@@ -17,11 +17,11 @@ export default function useDeleteEpisode(){
                 if(!request) return
 
                 const body = {
-                    "@assetType": "episodes",
-                    "@key": request?.["@key"]
+                    "@assetType": request?.assetType,
+                    "@key": request?.assetToDelete?.["@key"]
                 }
 
-                // console.log(body)
+                console.log(body)
 
                 await delDeleteAsset(body)
 
