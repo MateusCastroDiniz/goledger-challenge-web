@@ -21,6 +21,7 @@ import dayjs from 'dayjs';
 
 import {useForm, Controller} from 'react-hook-form'
 import useDeleteEpisode from '../hooks/Episodes/useDeleteEpisode';
+import useDeleteSeason from '../hooks/Seasons/useDeleteSeason';
 
 export default function ModalDeleteAsset({handleClose, openModal, setRefresh, operation, assetToDelete, assetType}) {
 
@@ -37,7 +38,9 @@ export default function ModalDeleteAsset({handleClose, openModal, setRefresh, op
     const {register, handleSubmit, reset, control} = useForm({
       values : valuesUseForm
     })
+
     const {setRequestDeleteEpisode, loadingDeleteEpisode} = useDeleteEpisode()
+    const {setRequestDeleteSeason, loadingDeleteSeason} = useDeleteSeason()
     // const {setRequestUpdate, loadingUpdate} = useUpdateSeason()
 
 
@@ -48,14 +51,15 @@ export default function ModalDeleteAsset({handleClose, openModal, setRefresh, op
       {
         setRequestDeleteEpisode(assetToDelete)
 
-      }else if(operation == "U")
+      }else if(assetType == "seasons")
       {
-        // setRequestUpdate(data)
+        console.log(assetToDelete)
+        setRequestDeleteSeason(data)
       }
 
-        handleClose(3);
+        // handleClose(3);
 
-        reset();
+        // reset();
     }
 
   return (
