@@ -1,16 +1,80 @@
-# React + Vite
+# 📺 MSP TV Show Catalog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema de gerenciamento de catálogo de séries, temporadas e episódios. O projeto permite o controle completo do ciclo de vida dos ativos, incluindo a exclusão em cascata (Série -> Temporadas -> Episódios) e navegação otimizada com paginação baseada em Bookmarks.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Escopo do Projeto
 
-## React Compiler
+O objetivo principal é oferecer uma interface administrativa para gerenciar conteúdo de vídeo com as seguintes funcionalidades:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **CRUD Completo:** Gerenciamento de Séries (TvShows), Temporadas (Seasons) e Episódios (Episodes).
+* **Gestão de Hierarquia:** Cada série possui múltiplas temporadas, e cada temporada possui vários episódios vinculados.
+* **Exclusão em Cascata:** Lógica robusta para garantir a integridade referencial, removendo todos os episódios e temporadas dependentes antes de excluir o ativo principal.
+* **Paginação de Alta Performance:** Utilização de `bookmarks` (cursores) do CouchDB para navegação fluida em grandes volumes de dados.
+* **Interface Moderna:** Desenvolvida com **Material UI (MUI)**, utilizando Skeletons para estados de carregamento e Accordions para organização de temporadas.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📁 Estrutura do Projeto
+
+```text
+.
+├── src
+│   ├── assets
+│   │   ├── hero.png
+│   │   ├── react.svg
+│   │   └── vite.svg
+│   ├── components
+│   │   ├── Episodes
+│   │   │   └── ModalEpisodeOperations.jsx
+│   │   ├── Seasons
+│   │   │   ├── AccordionSeasons.jsx
+│   │   │   ├── ModalCreateSeason.jsx
+│   │   │   └── ModalSeasonOperations.jsx
+│   │   ├── tvShow
+│   │   │   ├── CardTvShow.jsx
+│   │   │   ├── ModalCreateTvShow.jsx
+│   │   │   └── ModalUpdateTvShow.jsx
+│   │   ├── HeaderApp.jsx
+│   │   └── ModalDeleteAsset.jsx
+│   ├── hooks
+│   │   ├── Episodes
+│   │   │   ├── useCreateEpisode.js
+│   │   │   ├── useDeleteEpisode.js
+│   │   │   └── useUpdateEpisode.js
+│   │   ├── Seasons
+│   │   │   ├── useCreateSeason.js
+│   │   │   ├── useDeleteSeason.js
+│   │   │   ├── useDetailSeasons.js
+│   │   │   └── useUpdateSeason.js
+│   │   ├── tvShow
+│   │   │   ├── useCreateTvShow.js
+│   │   │   ├── useDeleteTvShow.js
+│   │   │   ├── useDetailShow.js
+│   │   │   ├── useShows.js
+│   │   │   └── useUpdateTvShow.js
+│   │   ├── useCreateAsset.js
+│   │   ├── useGetSchema.js
+│   │   ├── useHandleClickModal.js
+│   │   └── useSchemas.js
+│   ├── pages
+│   │   ├── Home.jsx
+│   │   └── TvShowDetail.jsx
+│   ├── services
+│   │   └── apiServices.js
+│   ├── styles
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   └── style.css
+│   ├── utils
+│   │   └── theme.js
+│   ├── App.jsx
+│   └── main.jsx
+├── public
+│   ├── favicon.svg
+│   └── icons.svg
+├── eslint.config.js
+├── index.html
+├── package.json
+└── vite.config.js
