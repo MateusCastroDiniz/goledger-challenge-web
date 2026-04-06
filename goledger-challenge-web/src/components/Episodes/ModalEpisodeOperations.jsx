@@ -21,49 +21,53 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 
 import {useForm, Controller} from 'react-hook-form'
+import {useNavigate} from 'react-router-dom'
 
 import useUpdateEpisode from '../../hooks/Episodes/useUpdateEpisode'
 import useCreateEpisode from '../../hooks/Episodes/useCreateEpisode';
 
 export default function ModalEpisodeOperations({handleClose, openModal, episode, setRefresh, season, operation}) {
+  const navigate = useNavigate(
+    
+  )
+  const valuesUseForm = operation === "U" && episode
+  ?{
+    episodeNumber: episode.episodeNumber,
+    title: episode.title,
+    description: episode.description,
+    releaseDate: dayjs(`${episode.releaseDate}`),
+    rating: episode.rating,
+    season
+  }:
+  {
+    year: dayjs("2026"),
+    season
+  }
 
-    const valuesUseForm = operation === "U" && episode
-    ?{
-      episodeNumber: episode.episodeNumber,
-      title: episode.title,
-      description: episode.description,
-      releaseDate: dayjs(`${episode.releaseDate}`),
-      rating: episode.rating,
-      season
-    }:
+  const {register, handleSubmit, reset, control} = useForm({
+    values : valuesUseForm
+  })
+  const {setRequestCreate, loadingCreate} = useCreateEpisode()
+  const {setRequestUpdate, loadingUpdate} = useUpdateEpisode()
+
+
+  const onSubmit = (data) => {
+    // console.log(data)
+    
+    if(operation == "C")
     {
-      year: dayjs("2026"),
-      season
+      setRequestCreate(data)
+
+    }else if(operation == "U")
+    {
+      setRequestUpdate(data)
     }
+      setRefresh(prev => prev + 1)
+      navigate(0)
+      handleClose(3);
 
-    const {register, handleSubmit, reset, control} = useForm({
-      values : valuesUseForm
-    })
-    const {setRequestCreate, loadingCreate} = useCreateEpisode()
-    const {setRequestUpdate, loadingUpdate} = useUpdateEpisode()
-
-
-    const onSubmit = (data) => {
-      // console.log(data)
-      
-      if(operation == "C")
-      {
-        setRequestCreate(data)
-
-      }else if(operation == "U")
-      {
-        setRequestUpdate(data)
-      }
-        setRefresh(prev => prev + 1)
-        handleClose(3);
-
-        reset();
-    }
+      reset();
+  }
 
   return (
     <>
