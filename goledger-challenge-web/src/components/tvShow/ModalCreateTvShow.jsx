@@ -17,7 +17,7 @@ import {useState} from 'react'
 
 import useCreateTvShow from '../../hooks/tvShow/useCreateTvShow'
 
-export default function ModalCreateTvShow({handleClose, openModal}) {
+export default function ModalCreateTvShow({handleClose, openModal, setRefresh}) {
 
 //   const handleSubmit = (event) => {
 //     event.preventDefault();
@@ -40,6 +40,7 @@ const {register, handleSubmit, reset, control} = useForm()
         // console.log(data)
         setRequest(data)
         handleClose();
+        setRefresh(prev => prev + 1)
 
         reset();
     }
