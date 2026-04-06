@@ -19,6 +19,8 @@ export default function useDeleteTvShow(){
 
                 const tvShow = request?.assetToDelete
 
+                if(tvShow.seasons.length > 0){
+                    
                 for (const s of tvShow.seasons) {
                     console.log(`Buscando episódios da temporada: ${s["@key"]}`);
 
@@ -32,20 +34,24 @@ export default function useDeleteTvShow(){
                             "@key": ep["@key"]
                         })
 
-                        // console.log(ep)
-
+                        console.log(ep)
+                        
                     }
-
+                    
                     await delDeleteAsset({
                         "@assetType": s["@assetType"],
                         "@key": s["@key"]
                     })
+                    console.log(s["@key"])
                 }
-
+                
+                }
+                
                 await delDeleteAsset({
                     "@assetType": tvShow.assetType,
                     "@key": tvShow["@key"],
                 })                
+                console.log(tvShow["@key"])
 
             }catch(err){
                 console.error("Ocorreu um erro ao tentar excluir um episódio.", err)
