@@ -1,5 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
-import {Button, Container, Box, Typography, Skeleton} from '@mui/material';
+import {Button, Container, Box, Typography, Skeleton, Pagination, Stack} from '@mui/material';
 
 import  useShows  from '../hooks/tvShow/UseShows.js'
 import useHandleClickModal from '../hooks/useHandleClickModal.js'
@@ -11,10 +11,13 @@ import '../styles/App.css'
 
 export default function Home(){
     const {
-        shows, 
-        filteredShows,
+        shows,
         loading,
-        setSearchTerm
+        setSearchTerm,
+        setRefresh,
+        currentPage,
+        handlePageChange,
+        hasMore
     } = useShows()
 
     const {
@@ -23,11 +26,13 @@ export default function Home(){
         handleClose
     } = useHandleClickModal()
 
+    console.log(shows)
+
     return(
         <Container sx={{height: "100vh", display: "flex", flexDirection: "column"}}>
             <HeaderApp setSearchTerm={setSearchTerm}/> 
 
-            <ModalCreateTvShow handleClose={handleClose} openModal={openModal}/>
+            <ModalCreateTvShow handleClose={handleClose} openModal={openModal} setRefresh={setRefresh}/>
 
 
             <Box sx={{display:"flex", flexGrow: 1, flexDirection: "column", justifyContent: "center"}}>
@@ -48,10 +53,10 @@ export default function Home(){
                     gap: 2
                 }}>
 
-                    {(loading ? Array.from(new Array(7)) : (filteredShows.length > 0 ? filteredShows : shows)).map(show => {
-                       
+                    {(loading ? Array.from(new Array(7)) : (Array.isArray(shows) ? shows : [])).map((show, index) => {
+
                        return show ? (
-                            <CardTvShow tvShow={show}/>
+                            <CardTvShow key={show?.["@key"]} tvShow={show}/>
                             
                         ):(
                             
@@ -67,9 +72,9 @@ export default function Home(){
                                     justifyContent: "space-between",
                                     boxSizing: "border-box" 
                                     }}>
-                                <Skeleton variant="rounded" sx={{flexGrow: 1, borderRadius:"20px"}}/>
-                                <Skeleton variant="rounded" height="40px" sx={{borderRadius:"20px"}}/>
-                                <Skeleton variant="rounded" height="40px" sx={{borderRadius:"20px"}}/>
+                                <Skeleton key={index} variant="rounded" sx={{flexGrow: 1, borderRadius:"20px"}}/>
+                                <Skeleton key={index} variant="rounded" height="40px" sx={{borderRadius:"20px"}}/>
+                                <Skeleton key={index} variant="rounded" height="40px" sx={{borderRadius:"20px"}}/>
 
                             </Box>
 
@@ -79,8 +84,19 @@ export default function Home(){
 
                     })}
                         
-                    
                 </Box>
+                    <Stack alignItems="center" sx={{ mt: 'auto', pb: 5 }}>
+                    <Pagination 
+                        count={hasMore ? currentPage + 1 : currentPage} 
+                        page={currentPage} 
+                        onChange={handlePageChange}
+                        color="primary"
+                        sx={{ 
+                            '& .MuiPaginationItem-root': { color: '#fff' },
+                            '& .Mui-selected': { backgroundColor: 'rgba(255, 255, 255, 0.2) !important' }
+                        }}
+                    />
+                </Stack>
 
 
 
