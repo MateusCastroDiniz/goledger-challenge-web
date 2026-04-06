@@ -26,7 +26,7 @@ export default function Home(){
         handleClose
     } = useHandleClickModal()
 
-    console.log(shows)
+    // console.log(shows)
 
     return(
         <Container sx={{height: "100vh", display: "flex", flexDirection: "column"}}>
