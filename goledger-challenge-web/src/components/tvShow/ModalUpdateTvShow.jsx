@@ -12,10 +12,13 @@ MenuItem
 }
 from '@mui/material';
 import {useForm, Controller} from 'react-hook-form'
+import {useNavigate} from 'react-router-dom'
 
 import useUpdateTvShow from '../../hooks/tvShow/useUpdateTvShow'
 
 export default function ModalUpdateTvShow({handleClose, openModal, tvShow, setRefresh}) {
+
+    const navigate = useNavigate()
 
     const {
         setRequest,
@@ -28,8 +31,9 @@ export default function ModalUpdateTvShow({handleClose, openModal, tvShow, setRe
         // console.log(data)
         handleClose(1);
         setRequest(data)
-        setRefresh(prev => prev + 1)
         reset();
+        setRefresh(prev => prev + 1)
+        navigate(0)
     }
 
   return (

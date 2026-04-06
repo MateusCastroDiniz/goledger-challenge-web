@@ -22,10 +22,6 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, setE
     setExpandedEpisode(isExpanded ? panel : false);
   };
 
-
-  console.log(seasonDetail)
-
-
   return (
     <Box sx={{width: "100%", position: "relative"}}>
 

@@ -14,6 +14,7 @@ from '@mui/material';
 import {useForm, Controller} from 'react-hook-form'
 
 import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 import useCreateTvShow from '../../hooks/tvShow/useCreateTvShow'
 
@@ -27,9 +28,10 @@ export default function ModalCreateTvShow({handleClose, openModal, setRefresh}) 
 //     console.log(email);
 //     handleClose();
 //   };
+    const navigate = useNavigate()
 
 
-const {register, handleSubmit, reset, control} = useForm()
+    const {register, handleSubmit, reset, control} = useForm()
 
     const {
         setRequest,
@@ -41,7 +43,7 @@ const {register, handleSubmit, reset, control} = useForm()
         setRequest(data)
         handleClose();
         setRefresh(prev => prev + 1)
-
+        navigate(0)
         reset();
     }
 
