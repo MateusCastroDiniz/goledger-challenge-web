@@ -111,9 +111,9 @@ export default function ModalCreateTvShow({handleClose, openModal, setRefresh}) 
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit" form="subscription-form">
-            Subscribe
+          <Button onClick={handleClose} sx={{color: "#000000"}}>Cancel</Button>
+          <Button type="submit" form="subscription-form" variant="contained" sx={{backgroundColor:"#f5c518", color: "#000000"}}>
+            Salvar
           </Button>
         </DialogActions>
       </Dialog>

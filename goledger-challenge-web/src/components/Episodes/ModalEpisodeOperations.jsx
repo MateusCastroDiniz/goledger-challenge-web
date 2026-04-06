@@ -158,8 +158,8 @@ export default function ModalEpisodeOperations({handleClose, openModal, episode,
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleClose(3)}>Cancelar</Button>
-          <Button type="submit" form="subscription-form" variant="contained">
+          <Button onClick={() => handleClose(3)} sx={{color: "#000000"}}>Cancelar</Button>
+          <Button type="submit" form="subscription-form" variant="contained" sx={{backgroundColor:"#f5c518", color: "#000000"}}>
             {operation === "C" ? "Salvar novo episódio" : "Salvar Alterações"}
           </Button>
         </DialogActions>

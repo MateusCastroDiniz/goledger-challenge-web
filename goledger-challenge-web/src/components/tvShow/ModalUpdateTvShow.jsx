@@ -100,8 +100,8 @@ export default function ModalUpdateTvShow({handleClose, openModal, tvShow, setRe
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={ () => handleClose(1)}>Cancel</Button>
-          <Button type="submit" form="subscription-form" variant="contained">
+          <Button onClick={ () => handleClose(1)} sx={{color: "#000000"}}>Cancel</Button>
+          <Button type="submit" form="subscription-form" variant="contained" sx={{backgroundColor:"#f5c518", color: "#000000"}}>
             Editar
           </Button>
         </DialogActions>

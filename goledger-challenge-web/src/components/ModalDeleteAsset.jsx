@@ -89,7 +89,7 @@ export default function ModalDeleteAsset({handleClose, openModal, setRefresh, op
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleClose(3)}>Cancelar</Button>
+          <Button onClick={() => handleClose(3)} sx={{color: "#000000"}}>Cancelar</Button>
           <Button type="submit" form="subscription-form" variant="contained" color={"error"}>
             Excluir
           </Button>
