@@ -78,3 +78,11 @@ O objetivo principal é oferecer uma interface administrativa para gerenciar con
 ├── index.html
 ├── package.json
 └── vite.config.js
+
+
+
+Para executar o projeto rode
+- npm install
+- npm run dev
+
+E acesse http://localhost:5173/home
