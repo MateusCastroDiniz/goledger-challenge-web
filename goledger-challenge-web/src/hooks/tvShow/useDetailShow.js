@@ -15,7 +15,7 @@ export default function useDetailShow(id){
         async function fetchShow(){
             try{
                 setLoadingTvShow(true)
-                const response = await getSearchedShow(id)
+                const response = await getSearchedShow(id, "")
                 // if(!response) return
 
                 // console.log(id)
