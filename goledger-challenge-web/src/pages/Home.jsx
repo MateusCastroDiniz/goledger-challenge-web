@@ -53,7 +53,7 @@ export default function Home(){
                     gap: 2
                 }}>
 
-                    {(loading ? Array.from(new Array(7)) : (Array.isArray(shows) ? shows : [])).map((show, index) => {
+                    {(loading ? Array.from(new Array(7)) : (Array.isArray(shows) ? shows : [])).map(show => {
 
                        return show ? (
                             <CardTvShow key={show?.["@key"]} tvShow={show}/>
@@ -72,9 +72,9 @@ export default function Home(){
                                     justifyContent: "space-between",
                                     boxSizing: "border-box" 
                                     }}>
-                                <Skeleton key={index} variant="rounded" sx={{flexGrow: 1, borderRadius:"20px"}}/>
-                                <Skeleton key={index} variant="rounded" height="40px" sx={{borderRadius:"20px"}}/>
-                                <Skeleton key={index} variant="rounded" height="40px" sx={{borderRadius:"20px"}}/>
+                                <Skeleton variant="rounded" sx={{flexGrow: 1, borderRadius:"20px"}}/>
+                                <Skeleton variant="rounded" height="40px" sx={{borderRadius:"20px"}}/>
+                                <Skeleton variant="rounded" height="40px" sx={{borderRadius:"20px"}}/>
 
                             </Box>
 
