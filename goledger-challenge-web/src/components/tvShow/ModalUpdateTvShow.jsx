@@ -33,7 +33,6 @@ export default function ModalUpdateTvShow({handleClose, openModal, tvShow, setRe
         setRequest(data)
         reset();
         setRefresh(prev => prev + 1)
-        navigate(0)
     }
 
   return (

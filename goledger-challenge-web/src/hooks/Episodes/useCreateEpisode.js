@@ -30,6 +30,7 @@ export default function useCreateEpisode(){
                 }
             }
 
+            console.log(body)
             await postCreateAsset(body)
 
         }catch(err){

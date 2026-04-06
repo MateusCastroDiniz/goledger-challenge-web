@@ -133,12 +133,11 @@ export async function putUpdateAsset(attr){
 
 
 export async function delDeleteAsset(attr){
-  const payload = JSON.stringify({
+  const payload = {
     "key": attr
-  })
+  }
 
-  // console.log(payload)
+  console.log(payload)
   await api.post("invoke/deleteAsset/", payload);
-  window.location.reload()
 
 }

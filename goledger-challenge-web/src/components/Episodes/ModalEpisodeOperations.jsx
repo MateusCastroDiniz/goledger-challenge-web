@@ -52,7 +52,7 @@ export default function ModalEpisodeOperations({handleClose, openModal, episode,
 
 
   const onSubmit = (data) => {
-    // console.log(data)
+    console.log(data)
     
     if(operation == "C")
     {
@@ -63,7 +63,7 @@ export default function ModalEpisodeOperations({handleClose, openModal, episode,
       setRequestUpdate(data)
     }
       setRefresh(prev => prev + 1)
-      navigate(0)
+      // navigate(0)
       handleClose(3);
 
       reset();

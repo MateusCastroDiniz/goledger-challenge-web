@@ -23,6 +23,7 @@ export default function useCreateTvShow(){
             }
 
             await postCreateAsset(body)
+            console.log(body)
 
             
         }catch(err){

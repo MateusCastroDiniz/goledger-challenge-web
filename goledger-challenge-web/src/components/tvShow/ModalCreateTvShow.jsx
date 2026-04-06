@@ -43,7 +43,6 @@ export default function ModalCreateTvShow({handleClose, openModal, setRefresh}) 
         setRequest(data)
         handleClose();
         setRefresh(prev => prev + 1)
-        navigate(0)
         reset();
     }
 

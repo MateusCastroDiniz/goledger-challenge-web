@@ -47,7 +47,7 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, setE
 
           <Box sx={{width:"100%", display: "flex", justifyContent: "end", alignItems: "center",  paddingX: "10px", gap: "10px", boxSizing: "border-box"}}>
               <Fab variant="extended" size={"small"}
-              sx={{ gap: "5px", backgroundColor: "#f5c518", width: "fit-content", fontSize: "12px", paddingX: "10px"}} 
+              sx={{ gap: "5px", backgroundColor: "#f5c518", width: "fit-content", fontSize: "12px", paddingX: "10px", display: expanded === season["@key"] ? "flex" : "none"}} 
               onClick={(event) => {
                     event.stopPropagation(); 
                     setSeason(season)
@@ -62,7 +62,9 @@ export default function AccordionSeasons({seasons, seasonDetail, setSeason, setE
                     event.stopPropagation();
                     setSeason(season)
                     handleClickOpenDeleteModal(3, "seasons", seasonDetail);
-                  }}>
+                  }}
+                  sx={{display: expanded === season["@key"] ? "flex" : "none"}}
+                  >
                 <DeleteIcon />
               </Fab>
           </Box>
