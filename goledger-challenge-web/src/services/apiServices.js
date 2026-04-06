@@ -17,33 +17,39 @@ export async function getSchema(props){
     return response.data;
 }
 
-export async function getShowsList(){
-
-    const payload = {
-    "query": {
-      "selector": {
-        "@assetType": "tvShows"
-      }
-    }
-  };
-
-  const response = await api.post("/query/search", payload);
-    return response.data.result;
-}
-
-
-export async function getSearchedShow(id){
+export async function getShowsList(bookmark=""){
 
     const payload = {
     "query": {
       "selector": {
         "@assetType": "tvShows",
-        "@key": id
-      }
+      },
+      "limit": 4,
+      ...(bookmark && {"bookmark": bookmark})
     }
   };
 
   const response = await api.post("/query/search", payload);
+
+  // console.log(payload)
+
+    return response.data;
+}
+
+
+export async function getSearchedShow(id, title){
+
+    const payload = {
+    "query": {
+      "selector": {
+        "@assetType": "tvShows",
+        "@key": id,
+        ...(title && {"title": title})
+      }
+    }
+  };
+  const response = await api.post("/query/search", payload);
+  // console.log(payload)
     return response.data.result;
 }
 
@@ -63,6 +69,7 @@ export async function getSeasonsShow(key){
     };
 
   const response = await api.post("/query/search", payload);
+  // console.log(payload)
     return response.data.result;
 }
 
