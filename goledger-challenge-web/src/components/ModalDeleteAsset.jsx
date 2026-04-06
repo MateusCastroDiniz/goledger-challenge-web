@@ -83,7 +83,7 @@ export default function ModalDeleteAsset({handleClose, openModal, setRefresh, op
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Tem certeza de que deseja excluir esse episódio?
+            Tem certeza de que deseja excluir esse {assetType}?
           </DialogContentText>
           <form id="subscription-form" onSubmit={handleSubmit(onSubmit)}>
           </form>
