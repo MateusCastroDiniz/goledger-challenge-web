@@ -26,7 +26,7 @@ export default function TvShowDetail(){
     const {seasonDetail, setSeason, loadingSeason} = useDetailSeason()
     const [selectedEpisode, setSelectedEpisode] = useState(null);
 
-    console.log(selectedEpisode)
+    console.log(tvShow)
 
     const [openModalUpdate, setOpenModalUpdate] = useState(false);
     const [openModalSeasonOperations, setOpenModalSeasonOperations] = useState(false);
