@@ -17,10 +17,12 @@ export default function useDetailShow(id){
                 setLoadingTvShow(true)
                 const response = await getSearchedShow(id)
                 // if(!response) return
+
+                // console.log(id)
                 
                 const show = response[0]
 
-                const tvShowSeasons = await getSeasonsShow(show["@key"])
+                const tvShowSeasons = await getSeasonsShow(id)
 
                 const seasonsSorted = tvShowSeasons.sort((a, b) => {return a.number - b.number})
                 
