@@ -49,7 +49,7 @@ export async function getSearchedShow(id, title){
     }
   };
   const response = await api.post("/query/search", payload);
-  // console.log(payload)
+  console.log(payload)
     return response.data.result;
 }
 
@@ -112,17 +112,18 @@ export async function getDetailSeason(key){
 
 export async function postCreateAsset(attr){
   
-  const payload = {
-    "asset": [attr]}
-  // console.log(payload)
+  const payload = JSON.stringify({
+    "asset": [attr]
+  })
+  console.log(payload)
   await api.post("/invoke/createAsset", payload)
 }
 
 export async function putUpdateAsset(attr){
-  const payload = {
+  const payload = JSON.stringify({
     "update": attr
-  }
-  // console.log(payload)
+  })
+  console.log(payload)
   
   await api.put("/invoke/updateAsset", payload)
 }
@@ -133,6 +134,6 @@ export async function delDeleteAsset(attr){
     "key": attr
   })
 
-  // console.log(payload)
-  await api.post("invoke/deleteAsset", payload);
+  console.log(payload)
+  await api.post("invoke/deleteAsset/", payload);
 }
