@@ -24,7 +24,7 @@ export async function getShowsList(bookmark=""){
       "selector": {
         "@assetType": "tvShows",
       },
-      "limit": 4,
+      "limit": 6,
       ...(bookmark && {"bookmark": bookmark})
     }
   };
@@ -43,8 +43,8 @@ export async function getSearchedShow(id, title){
     "query": {
       "selector": {
         "@assetType": "tvShows",
-        "@key": id,
-        ...(title && {"title": title})
+        ...(id && {"@key": id}),
+        ...(title && {"title": {$regex: `(?i).*${title}.*`}})
       }
     }
   };
@@ -112,18 +112,17 @@ export async function getDetailSeason(key){
 
 export async function postCreateAsset(attr){
   
-  const payload = JSON.stringify({
-    "asset": [attr]
-  })
-  console.log(payload)
+  const payload = {
+    "asset": [attr]}
+  // console.log(payload)
   await api.post("/invoke/createAsset", payload)
 }
 
 export async function putUpdateAsset(attr){
-  const payload = JSON.stringify({
+  const payload = {
     "update": attr
-  })
-  console.log(payload)
+  }
+  // console.log(payload)
   
   await api.put("/invoke/updateAsset", payload)
 }
@@ -134,6 +133,6 @@ export async function delDeleteAsset(attr){
     "key": attr
   })
 
-  console.log(payload)
-  await api.post("invoke/deleteAsset/", payload);
+  // console.log(payload)
+  await api.post("invoke/deleteAsset", payload);
 }
