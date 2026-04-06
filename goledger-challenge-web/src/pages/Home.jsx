@@ -38,7 +38,7 @@ export default function Home(){
             <Box sx={{display:"flex", flexGrow: 1, flexDirection: "column", justifyContent: "center"}}>
                 <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between", width:"100%", textAlign: "start", marginBottom: "15px"}}>
                     <Typography variant="h5" sx={{color: "#ffffff"}}>Principais títulos</Typography>
-                    <Button variant={"contained"} endIcon={<AddIcon/>} onClick={() => handleClickOpen()}>
+                    <Button variant={"contained"} sx={{backgroundColor:"#f5c518", color: "#000000"}} endIcon={<AddIcon/>} onClick={() => handleClickOpen()}>
                         Adicionar título
                     </Button>
                 </Box>
