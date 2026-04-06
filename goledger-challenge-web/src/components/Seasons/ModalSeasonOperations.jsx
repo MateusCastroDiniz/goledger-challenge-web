@@ -20,6 +20,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 
 import {useForm, Controller} from 'react-hook-form'
+import {useNavigate} from 'react-router-dom'
 
 import {useEffect, useState} from 'react'
 
@@ -60,10 +61,11 @@ export default function ModalSeasonOperations({handleClose, openModal, tvShow, s
       {
         setRequestUpdate(data)
       }
-        setRefresh(prev => prev + 1)
-        handleClose(2);
-
-        reset();
+      handleClose(2);
+      reset();
+      
+      setRefresh(prev => prev + 1)
+      navigate(0)
     }
 
   return (
